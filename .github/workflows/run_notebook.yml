@@ -11,19 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Sets up a Python environment for use in actions
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
+      # Installs project dependencies from the requirements.txt file
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install -r requirements.txt
 
-      - name: Run Python script
+      # Executes the main Python script for the stock screener
+      - name: Run stock screener
         run: |
-          python dayv2.py
+          python dayv2.py # Replace with the actual name of your script
