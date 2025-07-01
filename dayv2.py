@@ -43,6 +43,12 @@
 #     -   Added `lxml` to the installation requirements. This is a necessary dependency for `pandas.read_html`
 #         to parse data from HTML sources like Wikipedia.
 #
+# 8.  **[EXECUTION FIX] Commented out !pip install**
+#     -   The `!pip install` command is intended for interactive notebook environments (like Jupyter or Colab)
+#         and is invalid syntax in a standard Python (.py) script. It has been commented out.
+#         In a production environment like GitHub Actions, dependencies should be installed from a
+#         `requirements.txt` file in a separate workflow step.
+#
 # ============================================================================
 
 # ============================================================================
@@ -71,7 +77,9 @@
 # ============================================================================
 # INSTALLATION AND IMPORTS
 # ============================================================================
-!pip install yfinance pandas numpy matplotlib seaborn requests beautifulsoup4 scikit-learn textblob vaderSentiment plotly ta xgboost lxml
+# The following line is for interactive notebook environments only.
+# In a production script, dependencies should be managed externally (e.g., with a requirements.txt file).
+# !pip install yfinance pandas numpy matplotlib seaborn requests beautifulsoup4 scikit-learn textblob vaderSentiment plotly ta xgboost lxml
 
 import yfinance as yf
 import pandas as pd
