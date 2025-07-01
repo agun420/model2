@@ -31,4 +31,4 @@ jobs:
       # Executes the main Python script for the stock screener
       - name: Run stock screener
         run: |
-          python your_script_name.py # Replace with the actual name of your script
+          python dayv2.py # Replace with the actual name of your script
