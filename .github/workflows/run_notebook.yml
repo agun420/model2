@@ -26,4 +26,4 @@ jobs:
 
       - name: Run Python script
         run: |
-          python dayV2.py
+          python dayv2.py
