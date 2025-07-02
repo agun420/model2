@@ -1,34 +1,46 @@
-name: Run Python Script Every 3 Hours Starting 9:30 AM ET
+# .github/workflows/main.yml
 
+# Name of the workflow
+name: Run Trading Analysis Script
+
+# Controls when the action will run.
 on:
+  # Triggers the workflow on a schedule.
+  # This cron expression runs at 15 minutes past the hour, every 3 hours,
+  # from 9 AM to 5 PM EST (13, 16, 19 UTC).
+  # 9:15 AM EST -> 13:15 UTC
+  # 12:15 PM EST -> 16:15 UTC
+  # 3:15 PM EST -> 19:15 UTC
   schedule:
-    # Note: Cron schedules run in UTC. This schedule corresponds to 9:30 AM, 12:30 PM, 3:30 PM, 6:30 PM, etc., in Eastern Time (ET).
-    - cron: '30 13,16,19,22,1,4,7,10 * * *'
+    - cron: '15 13,16,19 * * *'
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
-  run:
+  # A single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      # Sets up a Python environment for use in actions
+      # Sets up python
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.9' # Specify python version
 
-      # Installs project dependencies
+      # Installs dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install yfinance scikit-learn xgboost vaderSentiment # Install required libraries
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install yfinance pandas numpy matplotlib seaborn requests beautifulsoup4 scikit-learn textblob vaderSentiment plotly ta xgboost lxml
 
-      # Executes the main Python script for the stock screener
-      - name: Run stock screener
-        run: |
-          python dayv2.py # Replace with the actual name of your script
+      # Runs the python script
+      - name: Run the trading script
+        run: python dayv2.py
